@@ -1,0 +1,7 @@
+import { Footer, Header } from "../../components/SiteChrome";
+const values = [
+  ["/images/about-us-1.jpg","Our","Company","At Torii Sushi, revealing the flavor of each ingredient is part of the tradition. Our team continually creates new dishes and combines diverse flavors for a unique, gourmet sensory experience."],
+  ["/images/about-us-2.jpg","The","Experience","At Torii Sushi, we make every visit an evocation of Japanese culinary pleasure—a moment of happiness and meaningful time shared with the people close to you."],
+  ["/images/about-us-3.jpg","Our","Philosophy","For owner Phat Nguyen, being involved with his team, guests and community is important. Torii Sushi is committed to acting as a socially responsible business."],
+];
+export default function EnglishAbout(){return <><Header overlay locale="en" /><main><section className="hero subpage-hero"><img className="hero-image" src="/images/about-us-header.jpg" alt="About Torii Sushi" /><div className="hero-shade" /><div className="subpage-title"><h2>About us</h2><h3>Torii Sushi</h3></div></section><section className="about-values">{values.map((v,i)=><article className={`value-row ${i%2?"reverse":""}`} key={v[2]}><img src={v[0]} alt={v[2]} /><div><p className="script accent eyebrow">{v[1]}</p><h2>{v[2]}</h2><p>{v[3]}</p></div></article>)}</section><section className="about-parallax"><div><p className="script">The art of hospitality</p><h2>JAPANESE STYLE</h2></div></section></main><Footer locale="en" /></>}
