@@ -1,0 +1,28 @@
+name: Sync final source to Sites
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace repository with validated source and publish it to Sites
+        shell: bash
+        run: |
+          cp torii-sites-source.zip /tmp/torii-sites-source.zip
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          unzip -q /tmp/torii-sites-source.zip -d .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finalize Torii Sushi site"
+          git push origin HEAD:main
+          git -c "http.extraHeader=Authorization: Bearer ${{ secrets.SITES_GIT_TOKEN }}" push --force "https://git.chatgpt-team.site/80a59b0d-98c7-4c07-9f3f-84debe94ddd4/appgprj_6a5a8cd29a948191b8cc4970ff9a1717.git" HEAD:main
